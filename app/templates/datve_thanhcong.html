@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đặt vé thành công</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<style>
+    /* style.css */
+
+    /* style.css */
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Roboto', sans-serif;
+        background: linear-gradient(135deg, #e0f7fa, #80deea);
+        color: #333;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    
+    header, footer {
+        background-color: #00796b;
+        color: white;
+        padding: 1rem 0;
+        text-align: center;
+        font-weight: 500;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+        padding: 2rem;
+    }
+    
+    .container {
+        max-width: 600px;
+        background: #ffffff;
+        padding: 2rem 2.5rem;
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        text-align: center;
+        transition: transform 0.3s ease;
+    }
+    
+    .container:hover {
+        transform: translateY(-5px);
+    }
+    
+    h2 {
+        color: #388e3c;
+        font-size: 2rem;
+        margin-bottom: 1.2rem;
+        font-weight: 700;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
+    }
+    
+    p {
+        font-size: 1.1rem;
+        margin: 1rem 0;
+        color: #555;
+    }
+    
+    ul {
+        list-style-type: none;
+        text-align: left;
+        margin: 1.5rem 0;
+        padding: 0;
+    }
+    
+    ul li {
+        padding: 0.7rem 0;
+        font-size: 1rem;
+        border-bottom: 1px solid #f0f0f0;
+        color: #333;
+        position: relative;
+        padding-left: 20px;
+    }
+    
+    ul li::before {
+        content: "✔";
+        position: absolute;
+        left: 0;
+        color: #388e3c;
+        font-size: 1rem;
+        top: 0.8rem;
+    }
+    
+    ul li:last-child {
+        border-bottom: none;
+    }
+    
+    a {
+        display: inline-block;
+        margin-top: 2rem;
+        padding: 0.8rem 1.8rem;
+        font-size: 1.1rem;
+        color: #ffffff;
+        background: linear-gradient(135deg, #42a5f5, #1e88e5);
+        border-radius: 8px;
+        text-decoration: none;
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    a:hover {
+        background: linear-gradient(135deg, #1e88e5, #1565c0);
+        box-shadow: 0 6px 16px rgba(0, 123, 255, 0.5);
+    }
+    
+    footer {
+        font-size: 0.9rem;
+        font-weight: 300;
+    }
+    
+    @media (max-width: 600px) {
+        .container {
+            padding: 1.5rem 2rem;
+        }
+        
+        h2 {
+            font-size: 1.6rem;
+        }
+        
+        ul li {
+            font-size: 0.95rem;
+        }
+        
+        a {
+            font-size: 1rem;
+            padding: 0.7rem 1.5rem;
+        }
+    }
+    
+
+</style>
+<body>
+    <header>
+        <!-- ... header ... -->
+    </header>
+
+    <main>
+        <section class="dat-ve-thanh-cong">
+            <div class="container">
+                <h2>Đặt vé thành công!</h2>
+                <p>Cảm ơn bạn đã đặt vé! Thông tin đặt vé của bạn:</p>
+                <ul>
+                    <li>Tên khách hàng: {{ ten_khach_hang }}</li>
+                    <li>Số điện thoại: {{ so_dien_thoai }}</li>
+                    <li>Email: {{ email }}</li>
+                    <li>Phim: {{ ten_phim }}</li>
+                    <li>Rạp: {{ rap }}</li>
+                    <li>Suất chiếu: {{ suatchieu }}</li>
+                    <li>Ghế: {{ ghe }}</li>
+                    <li>Số lượng vé: {{ so_luong_ve }}</li>
+                    <li>Tổng tiền: {{ tong_tien }} VND</li>
+                </ul>
+                <p>Vui lòng kiểm tra email của bạn để nhận mã đặt vé.</p>
+                <a href="/">Trở về trang chủ</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <!-- ... footer ... -->
+    </footer>
+</body>
+</html>

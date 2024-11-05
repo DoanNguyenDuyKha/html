@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản Lý Phim - Galaxy Cinema</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<style>
+    /* Xóa nút */
+    .btn-xoa {
+        color: white;
+        background-color: #e74c3c;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 3px;
+    }
+    
+    .btn-xoa:hover {
+        background-color: #c0392b;
+    }
+    
+    /* Cơ bản */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Roboto', sans-serif;
+    }
+    
+    body {
+        background-color: #f4f4f4;
+        color: #333;
+    }
+    
+    /* Header */
+    header {
+        background: #000;
+        color: #fff;
+        padding: 10px 0;
+    }
+    
+    .navbar .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .logo {
+        font-size: 24px;
+        font-weight: 700;
+        color: #FF9933;
+        text-decoration: none;
+    }
+    
+    .nav-links {
+        list-style: none;
+        display: flex;
+    }
+    
+    .nav-links li {
+        margin-left: 20px;
+    }
+    
+    .nav-links a {
+        color: #FF9933;
+        text-decoration: none;
+        font-weight: 400;
+        transition: color 0.3s ease;
+    }
+    
+    .nav-links a:hover {
+        color: #ffdd57;
+    }
+    
+    /* Quản lý */
+    .quan-ly .container {
+        padding: 20px;
+    }
+    
+    .tieu-de h2 {
+        font-size: 32px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    
+    .menu-quan-ly {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    
+    .btn-quan-ly {
+        background-color: #333;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background 0.3s ease;
+    }
+    
+    .btn-quan-ly:hover {
+        background-color: #555;
+    }
+    
+    /* Bảng Quản lý Đặt Vé */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    
+    .table th,
+    .table td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+    
+    .table th {
+        background-color: #333;
+        color: #fff;
+    }
+    
+    .table td {
+        background-color: #fff;
+    }
+    
+    /* Footer */
+    footer {
+        background: #222;
+        color: #ddd;
+        text-align: center;
+        padding: 20px 0;
+        font-size: 14px;
+    }
+    
+    footer p {
+        margin: 0;
+    }
+</style>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="#" class="logo">Galaxy Cinema</a>
+                <ul class="nav-links">
+                    <li><a href="/">Trang chủ</a></li>
+                    <li><a href="/danhsach">Phim</a></li>
+                    <li><a href="#rap">Rạp chiếu</a></li>
+                    <li><a href="#lienhe">Liên hệ</a></li>
+                    <li><a href="/quan-ly">Quản lý</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="quan-ly">
+            <div class="container">
+                <div class="tieu-de">
+                    <h2>Quản Lý Phim</h2>
+                </div>
+
+                <div class="menu-quan-ly">
+                    <button class="btn-quan-ly" onclick="window.location.href='/quan-ly'">Quản lý phim</button>
+                    <button class="btn-quan-ly" onclick="window.location.href='/quan-ly-nguoi-dung'">Quản lý người dùng</button>
+                    <button class="btn-quan-ly" onclick="window.location.href='/quan-ly-dat-ve'">Quản lý đặt vé</button>
+                </div>
+
+                <div id="quan-ly-phim" class="them-phim">
+                    <h3>Thêm Phim Mới</h3>
+                    <form method="POST" action="/add-phim" enctype="multipart/form-data">
+                        <div>
+                            <label for="ten-phim">Tên phim:</label>
+                            <input type="text" id="ten-phim" name="ten-phim" required>
+                        </div>
+                        <div>
+                            <label for="the-loai">Thể loại:</label>
+                            <input type="text" id="the-loai" name="the-loai" required>
+                        </div>
+                        <div>
+                            <label for="thoi-luong">Thời lượng:</label>
+                            <input type="number" id="thoi-luong" name="thoi-luong" required>
+                        </div>
+                        <div>
+                            <label for="khoi-chieu">Khởi chiếu:</label>
+                            <input type="date" id="khoi-chieu" name="khoi-chieu" required>
+                        </div>
+                        <div>
+                            <label for="poster">Poster:</label>
+                            <input type="file" id="poster" name="poster" accept="image/*" required>
+                        </div>
+                        <div>
+                            <label for="xep-hang">Xếp hạng:</label>
+                            <select id="xep-hang" name="xep-hang">
+                                <option value="T13">T13</option>
+                                <option value="T16">T16</option>
+                                <option value="T18">T18</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="loai-phim">Loại phim:</label>
+                            <select id="loai-phim" name="loai-phim">
+                                <option value="dang-chieu">Đang chiếu</option>
+                                <option value="sap-chieu">Sắp chiếu</option>
+                            </select>
+                        </div>
+                        <button type="submit">Thêm phim</button>
+                    </form>
+                </div>
+
+                <div class="danh-sach-phim">
+                    <h3>Danh sách Phim</h3>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên phim</th>
+                                <th>Thể loại</th>
+                                <th>Thời lượng</th>
+                                <th>Khởi chiếu</th>
+                                <th>Poster</th>
+                                <th>Xếp hạng</th>
+                                <th>Loại phim</th>
+                                <th>Cập nhật</th>
+                                <th>Xóa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for phim in ds_phim %}
+                            <tr>
+                                <td>{{ phim[0] }}</td>
+                                <td>{{ phim[1] }}</td>
+                                <td>{{ phim[2] }}</td>
+                                <td>{{ phim[3] }}</td>
+                                <td>{{ phim[4] }}</td>
+                                <td><img src="{{ url_for('static', filename='images/' + phim[5]) }}" alt="{{ phim[1] }}" width="100"></td>
+                                <td>{{ phim[6] }}</td>
+                                <td>{{ phim[7] }}</td>
+                                <td>
+                                    <form method="GET" action="/update-phim/{{ phim[0] }}">
+                                        <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                    </form>
+                                </td>                                
+                                <td>
+                                    <form method="POST" action="/delete-phim/{{ phim[0] }}">
+                                        <button type="submit" class="btn btn-danger">Xóa</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 Galaxy Cinema. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Galaxy Cinema - Đặt vé trực tuyến</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<style>
+    /* Đặt font chữ chung */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background: #000;
+    color: #fff;
+    padding: 10px 0;
+}
+
+/* Navbar */
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: #FF9933;
+    text-decoration: none;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    color: #FF9933;
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #ffdd57;
+}
+
+/* Hero section */
+.hero {
+    background: url('{{ url_for('static', filename='images/hero-bg.jpg') }}') no-repeat center center/cover;
+    color: #fff;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.hero .btn {
+    background: #ffdd57;
+    color: #000;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.hero .btn:hover {
+    background: #ffd700;
+}
+
+/* Banner slides */
+.banner {
+    margin: 30px 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.banner-slides {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.slide {
+    min-width: 100%;
+    transition: opacity 1s ease;
+}
+
+.slide img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.slide:not(.active) {
+    opacity: 0;
+}
+
+/* About section */
+.about {
+    padding: 50px 20px;
+    text-align: center;
+    background: #fff;
+}
+
+.about h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.rap-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.rap-item {
+    background: #eee;
+    padding: 20px;
+    border-radius: 5px;
+    transition: transform 0.3s ease;
+}
+
+.rap-item:hover {
+    background: #ddd;
+    transform: scale(1.05);
+}
+
+/* Contact section */
+.contact {
+    background: #333;
+    color: #fff;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.contact h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    max-width: 500px;
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.contact-form button {
+    background: #ffdd57;
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.contact-form button:hover {
+    background: #ffd700;
+}
+
+/* Footer */
+footer {
+    background: #222;
+    color: #ddd;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 14px;
+}
+
+footer p {
+    margin: 0;
+}
+
+</style>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="/" class="logo">Galaxy Cinema</a>
+                <ul class="nav-links">
+                    <li><a href="/">Trang chủ</a></li>
+                    <li><a href="/danhsach">Phim</a></li>
+                    <li><a href="#rap">Rạp chiếu</a></li>
+                    <li><a href="#lienhe">Liên hệ</a></li>
+                    {% if 'logged_in' in session and session['logged_in'] %}
+                        <li><a href="/quan-ly">Quản lý</a></li>
+                        <li><a href="/logout">Đăng xuất</a></li>
+                    {% else %}
+                        <li><a href="/dn">Đăng nhập</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+        <div class="hero">
+            <div class="container">
+                <h1>Chào mừng đến với Galaxy Cinema</h1>
+                <p>Nơi trải nghiệm những bộ phim tuyệt vời!</p>
+                <a href="/danhsach" class="btn"><b>Khám phá phim</b></a>
+            </div>
+        </div>
+
+        <div class="banner"> 
+            <div class="banner-slides">
+                <div class="slide"><img src="{{ url_for('static', filename='images/10yrs_kv__rbanner_1_.jpg') }}" alt="Phim mới"></div>
+                <div class="slide"><img src="{{ url_for('static', filename='images/rsz_980x448_pandora_rewards.jpg') }}" alt="Khuyến mãi"></div>
+                <div class="slide"><img src="{{ url_for('static', filename='images/980x448_22_.jpg') }}" alt="Phim chiếu rạp"></div>
+                <div class="slide"><img src="{{ url_for('static', filename='images/rsz_980x448_pandora_rewards.jpg') }}" alt="Vé xem phim"></div>
+                <div class="slide"><img src="{{ url_for('static', filename='images/twr_gcpro_980x448-min.jpg') }}" alt="Phim bom tấn"></div>
+            </div>
+        </div>
+
+        <script>
+            let slideIndex = 0;
+            const slides = document.querySelectorAll(".slide");
+        
+            function showSlides() {
+                // Xóa class "active" khỏi tất cả các ảnh
+                slides.forEach((slide) => {
+                    slide.classList.remove("active");
+                });
+        
+                // Thêm class "active" cho ảnh hiện tại
+                slides[slideIndex].classList.add("active");
+        
+                // Tăng chỉ số để chuyển sang ảnh tiếp theo
+                slideIndex++;
+                if (slideIndex >= slides.length) {
+                    slideIndex = 0; // Quay lại ảnh đầu tiên nếu đến ảnh cuối
+                }
+            }
+        
+            // Chạy hàm hiển thị ảnh mỗi 3 giây
+            setInterval(showSlides, 3000);
+        
+            // Hiển thị slide đầu tiên ngay khi tải trang
+            showSlides();
+        </script>
+    </header>
+
+    <section id="rap" class="about">
+        <div class="container">
+            <h2>Rạp chiếu</h2>
+            <p>Hệ thống rạp chiếu phim hiện đại, tiện nghi.</p>
+            <div class="rap-list">
+                <div class="rap-item">Rạp 1</div>
+                <div class="rap-item">Rạp 2</div>
+                <div class="rap-item">Rạp 3</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="lienhe" class="contact">
+        <div class="container">
+            <h2>Liên hệ</h2>
+            <p>Để lại thông tin liên lạc để chúng tôi hỗ trợ bạn.</p>
+            <form class="contact-form">
+                <input type="text" placeholder="Họ và tên" required>
+                <input type="email" placeholder="Email" required>
+                <textarea placeholder="Tin nhắn" required></textarea>
+                <button type="submit">Gửi</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2024 Galaxy Cinema. All rights reserved.</p>
+    </footer>
+</body>
+</html>

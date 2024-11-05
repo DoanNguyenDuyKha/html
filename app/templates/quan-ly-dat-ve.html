@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <title>Quản Lý Đặt Vé - Galaxy Cinema</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    </head>
+    <style>
+        /* Xóa nút */
+.btn-xoa {
+    color: white;
+    background-color: #e74c3c;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.btn-xoa:hover {
+    background-color: #c0392b;
+}
+
+/* Cơ bản */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Header */
+header {
+    background: #000;
+    color: #fff;
+    padding: 10px 0;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: #FF9933;
+    text-decoration: none;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    color: #FF9933;
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #ffdd57;
+}
+
+/* Quản lý */
+.quan-ly .container {
+    padding: 20px;
+}
+
+.tieu-de h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.menu-quan-ly {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.btn-quan-ly {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+.btn-quan-ly:hover {
+    background-color: #555;
+}
+
+/* Bảng Quản lý Đặt Vé */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.table th,
+.table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.table th {
+    background-color: #333;
+    color: #fff;
+}
+
+.table td {
+    background-color: #fff;
+}
+
+/* Footer */
+footer {
+    background: #222;
+    color: #ddd;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 14px;
+}
+
+footer p {
+    margin: 0;
+}
+
+    </style>
+    <body>
+        <header>
+            <nav class="navbar">
+                <div class="container">
+                    <a href="#" class="logo">Galaxy Cinema</a>
+                    <ul class="nav-links">
+                        <li><a href="/">Trang chủ</a></li>
+                        <li><a href="/danhsach">Phim</a></li>
+                        <li><a href="#rap">Rạp chiếu</a></li>
+                        <li><a href="#lienhe">Liên hệ</a></li>
+                        {% if 'logged_in' in session and session['logged_in'] %}
+                            <li><a href="/quan-ly">Quản lý</a></li>
+                            <li><a href="/logout">Đăng xuất</a></li>
+                        {% else %}
+                            <li><a href="/dn">Đăng nhập</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+        </header>
+    
+        <main>
+            <section class="quan-ly">
+                <div class="container">
+                    <div class="tieu-de">
+                        <h2>Quản Lý Đặt Vé</h2>
+                    </div>
+    
+                    <div class="menu-quan-ly">
+                        <button class="btn-quan-ly" onclick="window.location.href='/quan-ly'">Quản lý phim</button>
+                        <button class="btn-quan-ly" onclick="window.location.href='/quan-ly-nguoi-dung'">Quản lý người dùng</button>
+                        <button class="btn-quan-ly" onclick="window.location.href='/quan-ly-dat-ve'">Quản lý đặt vé</button>
+                    </div>
+    
+                    <div id="quan-ly-dat-ve">
+                        <h2>Quản Lý Đặt Vé</h2>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tên khách hàng</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Email</th>
+                                    <th>Phim</th>
+                                    <th>Rạp</th>
+                                    <th>Suất chiếu</th>
+                                    <th>Ghế</th>
+                                    <th>Số lượng vé</th>
+                                    <th>Ngày đặt vé</th>
+                                    <th>Giá vé</th>
+                                    <th>Hành động</th> <!-- Thêm cột hành động -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for dat_ve in ds_dat_ve %}
+                                <tr>
+                                    <td>{{ dat_ve[0] }}</td>
+                                    <td>{{ dat_ve[1] }}</td>
+                                    <td>{{ dat_ve[2] }}</td>
+                                    <td>{{ dat_ve[3] }}</td>
+                                    <td>
+                                        {% for phim in ds_phim %}
+                                            {% if dat_ve[4] == phim[0] %}
+                                                {{ phim[1] }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    <td>{{ dat_ve[7] }}</td>
+                                    <td>{{ dat_ve[8] }}</td>
+                                    <td>{{ dat_ve[9] }}</td>
+                                    <td>{{ dat_ve[5] }}</td>
+                                    <td>{{ dat_ve[6] }}</td>
+                                    <td>{{ dat_ve[10] }} VND</td>
+                                    <td>
+                                        <!-- Nút xóa với liên kết đến route xóa đặt vé -->
+                                        <form action="/xoa-dat-ve/{{ dat_ve[0] }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa đặt vé này?');">
+                                            <button type="submit" class="btn-xoa">Xóa</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    
+        <footer>
+            <p>© 2024 Galaxy Cinema. All rights reserved.</p>
+        </footer>
+    </body>
+    </html>

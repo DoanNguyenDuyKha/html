@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký - Galaxy Cinema</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<style>
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+  }
+  
+  body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #0D1B2A;
+      color: #ffffff;
+  }
+  
+  .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+  }
+  
+  .login-box {
+      background-color: #1B263B;
+      padding: 40px;
+      width: 400px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      text-align: center;
+  }
+  
+  .login-box h2 {
+      color: #00ADB5;
+      font-size: 20px;
+  }
+  
+  .login-box h1 {
+      color: #E6E6E6;
+      font-size: 28px;
+      margin: 10px 0 20px;
+  }
+  
+  .login-box label {
+      display: block;
+      text-align: left;
+      color: #ffffff;
+      font-size: 14px;
+      margin-bottom: 5px;
+  }
+  
+  .login-box input[type="text"],
+  .login-box input[type="password"],
+  .login-box input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 4px;
+      background-color: #112B3C;
+      color: #ffffff;
+  }
+  
+  .options {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: #ffffff;
+      margin-bottom: 20px;
+  }
+  
+  .options label {
+      display: flex;
+      align-items: center;
+  }
+  
+  .options a {
+      color: #00ADB5;
+      text-decoration: none;
+  }
+  
+  .options a:hover {
+      text-decoration: underline;
+  }
+  
+  .login-btn {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      background-image: linear-gradient(45deg, #FF3D5A, #553C9A);
+      color: #ffffff;
+      font-size: 16px;
+      cursor: pointer;
+  }
+  
+  .login-btn:hover {
+      opacity: 0.9;
+  }
+  
+  .login-box p {
+      font-size: 14px;
+      margin-top: 20px;
+  }
+  
+  .login-box p a {
+      color: #00ADB5;
+      text-decoration: none;
+  }
+  
+  .login-box p a:hover {
+      text-decoration: underline;
+  }
+  
+</style>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h2>ĐĂNG KÝ TÀI KHOẢN</h2>
+            <h1>RAPCHIEUPHIM</h1>
+            <form action="/dk" method="POST">
+                <label for="username">TÊN ĐĂNG NHẬP*</label>
+                <input type="text" id="username" name="username" placeholder="Nhập tên đăng nhập của bạn">
+                
+                <label for="password">MẬT KHẨU*</label>
+                <input type="password" id="password" name="password" placeholder="Nhập mật khẩu của bạn">
+                
+                <label for="fullname">HỌ VÀ TÊN*</label>
+                <input type="text" id="fullname" name="fullname" placeholder="Nhập họ và tên của bạn">
+                
+                <label for="email">EMAIL*</label>
+                <input type="email" id="email" name="email" placeholder="Nhập email của bạn">
+                
+                <button type="submit" class="login-btn">ĐĂNG KÝ</button>
+            </form>
+            <p>Bạn đã có tài khoản Rapchieuphim? <a href="/dn">Đăng nhập ngay</a></p>
+        </div>
+    </div>
+</body>
+</html>

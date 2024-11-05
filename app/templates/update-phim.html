@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Cập Nhật Phim - Galaxy Cinema</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0062cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Cập Nhật Thông Tin Phim</h2>
+        <form method="POST" action="/update-phim/{{ phim[0] }}" enctype="multipart/form-data">
+            <div>
+                <label for="ten-phim">Tên phim:</label>
+                <input type="text" id="ten-phim" name="ten-phim" value="{{ phim[1] }}" required>
+            </div>
+            <div>
+                <label for="the-loai">Thể loại:</label>
+                <input type="text" id="the-loai" name="the-loai" value="{{ phim[2] }}" required>
+            </div>
+            <div>
+                <label for="thoi-luong">Thời lượng:</label>
+                <input type="number" id="thoi-luong" name="thoi-luong" value="{{ phim[3] }}" required>
+            </div>
+            <div>
+                <label for="khoi-chieu">Khởi chiếu:</label>
+                <input type="date" id="khoi-chieu" name="khoi-chieu" value="{{ phim[4] }}" required>
+            </div>
+            <div>
+                <label for="poster">Poster (Cập nhật nếu cần):</label>
+                <input type="file" id="poster" name="poster" accept="image/*">
+            </div>
+            <div>
+                <label for="xep-hang">Xếp hạng:</label>
+                <select id="xep-hang" name="xep-hang">
+                    <option value="T13" {% if phim[6] == "T13" %}selected{% endif %}>T13</option>
+                    <option value="T16" {% if phim[6] == "T16" %}selected{% endif %}>T16</option>
+                    <option value="T18" {% if phim[6] == "T18" %}selected{% endif %}>T18</option>
+                </select>
+            </div>
+            <div>
+                <label for="loai-phim">Loại phim:</label>
+                <select id="loai-phim" name="loai-phim">
+                    <option value="dang-chieu" {% if phim[7] == "dang-chieu" %}selected{% endif %}>Đang chiếu</option>
+                    <option value="sap-chieu" {% if phim[7] == "sap-chieu" %}selected{% endif %}>Sắp chiếu</option>
+                </select>
+            </div>
+            <button type="submit">Cập nhật phim</button>
+        </form>
+    </div>
+</body>
+</html>

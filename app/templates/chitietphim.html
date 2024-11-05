@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ phim[1] }} - Galaxy Cinema</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<style>
+    /* Đặt phông chữ chính cho toàn bộ trang */
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+/* Định dạng thanh điều hướng */
+.navbar {
+    background-color: #333;
+    padding: 1em 0;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.navbar .nav-links li {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+
+.navbar .nav-links a:hover {
+    color: #ff6347;
+}
+
+/* Định dạng chi tiết phim */
+.chi-tiet .container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 2em;
+    padding: 2em;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 2em;
+    max-width: 900px;
+    margin: 2em auto;
+}
+
+/* Phong cách poster phim */
+.movie-poster img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Phong cách thông tin phim */
+.movie-info h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+}
+
+.movie-info p {
+    font-size: 16px;
+    margin: 0.5em 0;
+    color: #666;
+}
+
+/* Chi tiết phim */
+.movie-details {
+    margin-top: 1.5em;
+    font-size: 16px;
+    color: #444;
+}
+
+/* Phong cách cho các nút */
+.btn-buy, .btn-trailer {
+    display: inline-block;
+    padding: 0.8em 1.2em;
+    margin: 1em 0.5em 0 0;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.btn-buy {
+    background-color: #ff6347;
+    color: #fff;
+}
+
+.btn-buy:hover {
+    background-color: #e05235;
+}
+
+.btn-trailer {
+    background-color: #555;
+    color: #fff;
+}
+
+.btn-trailer:hover {
+    background-color: #444;
+}
+
+/* Định dạng footer */
+footer {
+    text-align: center;
+    padding: 1em 0;
+    background-color: #333;
+    color: #fff;
+    margin-top: 2em;
+    font-size: 14px;
+}
+/* Đặt font chữ chung */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background: #000;
+    color: #fff;
+    padding: 10px 0;
+}
+
+/* Navbar */
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: #FF9933;
+    text-decoration: none;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    color: #FF9933;
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #ffdd57;
+}
+
+/* Hero section */
+.hero {
+    background: url('{{ url_for('static', filename='images/hero-bg.jpg') }}') no-repeat center center/cover;
+    color: #fff;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.hero .btn {
+    background: #ffdd57;
+    color: #000;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.hero .btn:hover {
+    background: #ffd700;
+}
+
+/* Banner slides */
+.banner {
+    margin: 30px 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.banner-slides {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.slide {
+    min-width: 100%;
+    transition: opacity 1s ease;
+}
+
+.slide img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.slide:not(.active) {
+    opacity: 0;
+}
+
+/* About section */
+.about {
+    padding: 50px 20px;
+    text-align: center;
+    background: #fff;
+}
+
+.about h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.rap-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.rap-item {
+    background: #eee;
+    padding: 20px;
+    border-radius: 5px;
+    transition: transform 0.3s ease;
+}
+
+.rap-item:hover {
+    background: #ddd;
+    transform: scale(1.05);
+}
+
+/* Contact section */
+.contact {
+    background: #333;
+    color: #fff;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.contact h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    max-width: 500px;
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.contact-form button {
+    background: #ffdd57;
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.contact-form button:hover {
+    background: #ffd700;
+}
+
+/* Footer */
+footer {
+    background: #222;
+    color: #ddd;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 14px;
+}
+
+footer p {
+    margin: 0;
+}
+</style>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="/" class="logo">Galaxy Cinema</a>
+                <ul class="nav-links">
+                    <li><a href="/">Trang chủ</a></li>
+                    <li><a href="/danhsach">Phim</a></li>
+                    <li><a href="#rap">Rạp chiếu</a></li>
+                    <li><a href="#lienhe">Liên hệ</a></li>
+                    {% if 'logged_in' in session and session['logged_in'] %}
+                        <li><a href="/quan-ly">Quản lý</a></li>
+                        <li><a href="/logout">Đăng xuất</a></li>
+                    {% else %}
+                        <li><a href="/dn">Đăng nhập</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="chi-tiet">
+            <div class="container">
+                <div class="movie-poster">
+                    <img src="{{ url_for('static', filename='images/' + phim[5]) }}" alt="{{ phim[1] }}">
+                </div>
+                <div class="movie-info">
+                    <h2>{{ phim[1] }}</h2>
+                    <p>Thể loại: {{ phim[2] }}</p>
+                    <p>Thời lượng: {{ phim[3] }} phút</p>
+                    <p>Khởi chiếu: {{ phim[4] }}</p>
+                    <p>Xếp hạng: {{ phim[6] }}</p>
+                    <p>Loại phim: {{ phim[7] }}</p>
+                </div>
+                <div>
+                    <a href="/dat-ve/{{ phim[0] }}" class="btn-buy">Đặt vé</a>
+                    <a href="#" class="btn-trailer">Chi tiết | Trailer</a>
+                </div>
+                <div class="movie-details">
+                    <p>{{ phim[8] }}</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 Galaxy Cinema. All rights reserved.</p>
+    </footer>
+</body>
+</html>
